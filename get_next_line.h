@@ -6,17 +6,20 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 17:26:33 by vallangl          #+#    #+#             */
-/*   Updated: 2025/11/25 07:32:59 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/11/27 14:27:33 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-
-
+# ifndef BUFFER_SIZE 
+#  define BUFFER_SIZE 1024
+# endif
+ 
 #include <fcntl.h>
 #include <stdlib.h>
+
 char	*get_next_line(int fd);
 char	*extract_line(char *buffer);
 char	*checkbuffer(char *buffer);

@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 19:39:54 by vallangl          #+#    #+#             */
-/*   Updated: 2025/11/25 07:35:11 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/11/27 14:31:25 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,15 @@ char	*checkbuffer(char *buffer)
 
 char *get_next_line(int fd)
 {
-	// unsigned int *buffer_size;
-    // static char buffer[buffer_size + 1];
-    // char    tmp;
-    // int bytes_read;
-    // char    *line;
+    static char buffer[BUFFER_SIZE + 1];
+    char    tmp;
+    int bytes_read;
+    char    *line;
     
-    // if (!fd || !buffer_size)
-    //     return (NULL);
-    // buffer = ft_strchr(buffer, '\n');
-    // while (bytes_read > 0)
-    // {    
-    // }
+    if (!fd)
+        return (NULL);
+    while (bytes_read > 0)
+    {    
         
+    }        
 }
