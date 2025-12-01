@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 19:39:54 by vallangl          #+#    #+#             */
-/*   Updated: 2025/11/27 14:31:25 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/01 16:36:34 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ char	*checkbuffer(char *buffer)
         {
             i = check - buffer + 1;
             new_buffer = ft_substr(buffer, i, ft_strlen(buffer + i)); 
-            free (buffer);
+            // free (buffer);
             return (new_buffer);
         }
-        free (buffer) ;
+        // free (buffer) ;
         return (NULL);        
 }
 
@@ -54,10 +54,12 @@ char *get_next_line(int fd)
     int bytes_read;
     char    *line;
     
-    if (!fd)
+    if (!fd || BUFFER_SIZE <= 0)
         return (NULL);
+    bytes_read = read(fd, buffer, BUFFER_SIZE);
     while (bytes_read > 0)
-    {    
+    {   
         
+        bytes_read = read(fd, buffer, BUFFER_SIZE);
     }        
 }
