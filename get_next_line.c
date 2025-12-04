@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 19:39:54 by vallangl          #+#    #+#             */
-/*   Updated: 2025/12/01 16:36:34 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:16:10 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*extract_line(char *line_pos)
 {
-    char buffer;
+    char *buffer;
 	int len;
 	
 	line_pos = ft_strchr(buffer, '\n');
@@ -54,12 +54,11 @@ char *get_next_line(int fd)
     int bytes_read;
     char    *line;
     
-    if (!fd || BUFFER_SIZE <= 0)
+    if (fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
     bytes_read = read(fd, buffer, BUFFER_SIZE);
     while (bytes_read > 0)
     {   
-        
         bytes_read = read(fd, buffer, BUFFER_SIZE);
     }        
 }
