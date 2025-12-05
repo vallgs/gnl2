@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 19:39:54 by vallangl          #+#    #+#             */
-/*   Updated: 2025/12/05 18:23:28 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/05 19:01:43 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,23 @@ char	*read_and_accumulate(int fd, char *static_buffer)
 	if (!temp_buffer)
 		return (NULL);
 	bytes_read = 1;
-	while (bytes_read > 0 && !ft_strchr(static_buffer, '\n'))
+	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
-		{
-			free(temp_buffer);
-			free(static_buffer);
-			return (NULL);
+		{ 
+            free(temp_buffer);
+		    free(static_buffer);
+	 		return (NULL);
 		}
+		if (bytes_read == 0)
+			break ;
 		temp_buffer[bytes_read] = '\0';
 		new_buffer = ft_strjoin(static_buffer, temp_buffer);
 		free(static_buffer);
 		static_buffer = new_buffer;
+		if (ft_strchr(static_buffer, '\n'))
+			break ;
 	}
 	free(temp_buffer);
 	return (static_buffer);
