@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 23:05:38 by vallangl          #+#    #+#             */
-/*   Updated: 2025/11/25 05:05:50 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/05 18:24:25 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ char *ft_strjoin(char const *s1, char const *s2)
 	char	*str;
 
 	i = 0;
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	str = (char *)malloc((ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	while (s1[i])
@@ -31,11 +35,7 @@ char *ft_strjoin(char const *s1, char const *s2)
 	}
 	j = 0;
 	while (s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
+		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);
 }
@@ -76,10 +76,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (NULL);
-	if (start >= ft_strlen(s))
-		return (ft_calloc(1, 1));
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
+	if (start >= ft_strlen((char *)s))
+	{
+		b = malloc(1);
+		if (b)
+			b[0] = '\0';
+		return (b);
+	}
+	if (len > ft_strlen((char *)s) - start)
+		len = ft_strlen((char *)s) - start;
 	b = malloc(sizeof(char) * (len + 1));
 	if (!b)
 		return (NULL);
@@ -90,6 +95,28 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	b[i] = '\0';
 	return (b);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*dup;
+	size_t	len;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	len = ft_strlen((char *)s);
+	dup = malloc(sizeof(char) * (len + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }
 
 
