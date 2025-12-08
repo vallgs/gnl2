@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 23:05:38 by vallangl          #+#    #+#             */
-/*   Updated: 2025/12/05 18:24:25 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:32:10 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char *ft_strjoin(char const *s1, char const *s2)
 		return (ft_strdup(s2));
 	if (!s2)
 		return (ft_strdup(s1));
-	str = (char *)malloc((ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1) * sizeof(char));
+	str = (char *)malloc((ft_strlen((char *)s1)
+			+ ft_strlen((char *)s2) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	while (s1[i])

@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 19:39:54 by vallangl          #+#    #+#             */
-/*   Updated: 2025/12/05 19:01:43 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/08 17:57:02 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,7 @@ char	*read_and_accumulate(int fd, char *static_buffer)
 	{
 		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
-		{ 
-            free(temp_buffer);
-		    free(static_buffer);
-	 		return (NULL);
-		}
+	 		return (freebuf(temp_buffer, static_buffer), NULL);
 		if (bytes_read == 0)
 			break ;
 		temp_buffer[bytes_read] = '\0';
@@ -80,6 +76,12 @@ char	*read_and_accumulate(int fd, char *static_buffer)
 	}
 	free(temp_buffer);
 	return (static_buffer);
+}
+
+void freebuf(char *temp_buffer, char *buffer)
+{
+	free(temp_buffer);
+	free(buffer);
 }
 
 char	*get_next_line(int fd)

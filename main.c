@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 21:02:58 by vallangl          #+#    #+#             */
-/*   Updated: 2025/12/05 19:07:27 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/08 17:26:16 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ int	main(int argc, char **argv)
 		printf("Error: Could not open file '%s'\n", argv[1]);
 		return (1);
 	}
-	i = 1;
-	line = get_next_line(fd);
-	printf("Line %d: %s", i, line);
-	line = get_next_line(fd);
-	line = get_next_line(fd);
-	printf("Line %d: %s", i, line);
-	puts("closed");
-	close(fd);
-	fd = open(argv[1], O_RDONLY);
-	puts("openned");
+	// i = 1;
+	// line = get_next_line(fd);
+	// printf("Line %d: %s", i, line);
+	// line = get_next_line(fd);
+	// line = get_next_line(fd);
+	// printf("Line %d: %s", i, line);
+	// puts("closed");
+	// close(fd);
+	// fd = open(argv[1], O_RDONLY);
+	// puts("openned");
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("Line %d: %s", i, line);
