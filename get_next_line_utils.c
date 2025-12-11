@@ -6,16 +6,16 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 23:05:38 by vallangl          #+#    #+#             */
-/*   Updated: 2025/12/08 16:32:10 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/11 19:27:53 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 	char	*str;
 
 	i = 0;
@@ -24,11 +24,11 @@ char *ft_strjoin(char const *s1, char const *s2)
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
-		return (ft_strdup(s1));
-	str = (char *)malloc((ft_strlen((char *)s1)
-			+ ft_strlen((char *)s2) + 1) * sizeof(char));
+		return (free(s1), NULL);
+	str = (char *)malloc((ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1)
+			* sizeof(char));
 	if (!str)
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -38,13 +38,13 @@ char *ft_strjoin(char const *s1, char const *s2)
 	while (s2[j])
 		str[i++] = s2[j++];
 	str[i] = '\0';
-	return (str);
+	return (free(s1), str);
 }
 
-size_t ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (str[i])
 		i++;
@@ -119,6 +119,3 @@ char	*ft_strdup(const char *s)
 	dup[i] = '\0';
 	return (dup);
 }
-
-
-
