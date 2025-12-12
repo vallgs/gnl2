@@ -6,7 +6,7 @@
 /*   By: vallangl <vallangl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 19:39:54 by vallangl          #+#    #+#             */
-/*   Updated: 2025/12/11 19:37:17 by vallangl         ###   ########.fr       */
+/*   Updated: 2025/12/12 19:20:45 by vallangl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ char	*extract_line(char *full_line)
 	return (ft_strdup(full_line));
 }
 
-void	checkbuffer(char *full_line, char *buffer)
+void	updatebuffer(char *full_line, char *buffer)
 {
 	int		len;
-	int len_buffer;
+	int 	len_buffer;
 	int		i;
 	char	*newline_pos;
 
@@ -61,18 +61,24 @@ void	checkbuffer(char *full_line, char *buffer)
 
 char	*read_and_accumulate(int fd, char *buffer)
 {
-	char	*full_line = NULL;
+	char	*full_line;
 	int		br;
 
-	if (buffer[0] != '\0')
-	{
-		full_line = ft_strdup(buffer);
-		if (!full_line)
-			return (NULL);
-	}
+	full_line = ft_checkbuffer(buffer);
 	br = 1;
-	while (br > 0 && (br = read(fd, buffer, BUFFER_SIZE)) > 0)
+	while (br > 0)
 	{
+		br = read(fd, buffer, BUFFER_SIZE);
+		if (br == 0)
+			break ;
+		if (br < 0)
+		{
+			int len = ft_strlen(buffer);
+			int i = 0;
+			while (i < len)
+				buffer[i++] = '\0';
+			return (free(full_line), NULL);
+		}
 		buffer[br] = '\0';
 		full_line = ft_strjoin(full_line, buffer);
 		if (!full_line)
@@ -80,11 +86,21 @@ char	*read_and_accumulate(int fd, char *buffer)
 		if (ft_strchr(full_line, '\n'))
 			break ;
 	}
-	if (br < 0)
-		return (free(full_line), NULL);
 	return (full_line);
 }
-
+char *ft_checkbuffer(char *buffer)
+{
+	char *full_line;
+	
+	full_line = NULL;
+	if (buffer[0] != '\0')
+	{
+		full_line = ft_strdup(buffer);
+		if (!full_line)
+			return (NULL);
+	}
+	return (full_line);
+}
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
@@ -97,7 +113,7 @@ char	*get_next_line(int fd)
 	if (!full_line)
 		return (NULL);
 	line = extract_line(full_line);
-	checkbuffer(full_line, buffer);
+	updatebuffer(full_line, buffer);
 	free(full_line);
 	if ((!line || !line[0]))
 	{
@@ -123,7 +139,7 @@ char	*get_next_line(int fd)
 // 	return (ft_strdup(buffer));
 // }
 
-// char	*checkbuffer(char *buffer)
+// char	*updatebuffer(char *buffer)
 // {
 // 	int		i;
 // 	char	*check;
@@ -255,7 +271,7 @@ char	*get_next_line(int fd)
 // 	if (!buffer)
 // 		return (NULL);
 // 	line = extract_line(buffer);
-// 	buffer = checkbuffer(buffer);
+// 	buffer = updatebuffer(buffer);
 // 	if (!buffer && (!line || !line[0]))
 // 	{
 // 		free(line);
